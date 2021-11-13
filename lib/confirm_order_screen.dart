@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
+import 'package:vestr_poc/order.dart';
 import 'package:vestr_poc/products_screen.dart';
+import 'package:vestr_poc/order_event.dart';
 import 'package:vestr_poc/search_screen.dart';
+
+import 'order_bloc.dart';
 
 class AppDropdownInput<T> extends StatelessWidget {
   final String hintText;
@@ -109,8 +114,11 @@ class ConfirmOrderScreen extends StatelessWidget {
                           isScrollControlled: true,
                           context: context,
                           builder: (context) => FractionallySizedBox(
-                              heightFactor: 0.85, child: SearchOverviewScreen()),
-                          // settings: RouteSettings(arguments: product),
+                            heightFactor: 0.85,
+                            child: BlocProvider<OrderBloc>(
+                                create: (_) => OrderBloc(new Order(null)),
+                                child: SearchOverviewScreen()),
+                          ),
                         );
                       },
                       child: Text('ADD ASSET'),
