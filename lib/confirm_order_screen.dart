@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
 import 'package:vestr_poc/products_screen.dart';
+import 'package:vestr_poc/search_screen.dart';
 
 class AppDropdownInput<T> extends StatelessWidget {
   final String hintText;
@@ -86,11 +87,13 @@ class ConfirmOrderScreen extends StatelessWidget {
                       fontSize: 16,
                       color:
                           Theme.of(context).appBarTheme.titleTextStyle!.color)),
-              Padding(padding: EdgeInsets.only(left: 4), child: Text(product.name,
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromRGBO(0, 0, 0, 0.87)))),
+              Padding(
+                  padding: EdgeInsets.only(left: 4),
+                  child: Text(product.name,
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(0, 0, 0, 0.87)))),
             ]),
           )),
       body: Column(
@@ -101,7 +104,15 @@ class ConfirmOrderScreen extends StatelessWidget {
                 Padding(
                     padding: EdgeInsets.only(left: 15),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (context) => FractionallySizedBox(
+                              heightFactor: 0.85, child: SearchOverviewScreen()),
+                          // settings: RouteSettings(arguments: product),
+                        );
+                      },
                       child: Text('ADD ASSET'),
                     ))
               ]))),

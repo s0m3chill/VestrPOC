@@ -18,7 +18,7 @@ class _ProductOverviewScreenState extends State<SearchOverviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: GFColors.DARK,
+      backgroundColor: GFColors.WHITE,
       body: GFSearchBar(
         searchList: list,
         searchQueryBuilder: (query, list) {
