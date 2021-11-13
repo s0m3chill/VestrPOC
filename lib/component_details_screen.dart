@@ -57,10 +57,7 @@ class ComponentDetailsScreen extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context)
-                            .appBarTheme
-                            .titleTextStyle!
-                            .color)),
+                        color: Color.fromRGBO(0, 0, 0, 0.87))),
               ])
             ]),
           )),

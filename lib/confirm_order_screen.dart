@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
+import 'package:vestr_poc/products_screen.dart';
 
 class AppDropdownInput<T> extends StatelessWidget {
   final String hintText;
@@ -68,12 +69,30 @@ class ConfirmOrderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final product =
+        ModalRoute.of(context)!.settings.arguments as DashboardProduct;
+
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Color.fromRGBO(0, 0, 0, 0.54), //change your color here
-        ),
-      ),
+          titleSpacing: 0.0,
+          centerTitle: false,
+          iconTheme: IconThemeData(
+            color: Color.fromRGBO(0, 0, 0, 0.54), //change your color here
+          ),
+          title: Container(
+            child: Row(children: [
+              Text("New order",
+                  style: TextStyle(
+                      fontSize: 16,
+                      color:
+                          Theme.of(context).appBarTheme.titleTextStyle!.color)),
+              Padding(padding: EdgeInsets.only(left: 4), child: Text(product.name,
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromRGBO(0, 0, 0, 0.87)))),
+            ]),
+          )),
       body: Column(
         children: [
           Padding(

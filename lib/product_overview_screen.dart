@@ -22,7 +22,7 @@ class ProductOverviewScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => ConfirmOrderScreen(),
-                                // settings: RouteSettings(arguments: product.components[index]),
+                                settings: RouteSettings(arguments: product),
                               ));
                         }))
                   ])
@@ -42,10 +42,7 @@ class ProductOverviewScreen extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Theme.of(context)
-                              .appBarTheme
-                              .titleTextStyle!
-                              .color)),
+                          color: Color.fromRGBO(0, 0, 0, 0.87))),
                   Padding(
                       padding: EdgeInsets.only(left: 8),
                       child: ImageIcon(
