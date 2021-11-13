@@ -17,8 +17,23 @@ class Component {
   final String totalUnits;
   final String positionValue;
   final String percentCurrent;
-  
-  Component(this.name, this.shortName,this.custodian,this.isin,this.closePrice,this.mtmPrice,this.currency,this.figi,this.valor,this.unitsPerAmc,this.totalUnits,this.positionValue,this.percentCurrent);
+  final bool enabled;
+
+  Component(
+      this.name,
+      this.shortName,
+      this.custodian,
+      this.isin,
+      this.closePrice,
+      this.mtmPrice,
+      this.currency,
+      this.figi,
+      this.valor,
+      this.unitsPerAmc,
+      this.totalUnits,
+      this.positionValue,
+      this.percentCurrent,
+      this.enabled);
 }
 
 class DashboardProduct {
@@ -31,8 +46,15 @@ class DashboardProduct {
   final String? mtdChange;
   final List<Component> components;
 
-  DashboardProduct(this.name, this.pendingOrderCount, this.status,
-      this.outstandingQuantity, this.bid, this.ask, this.mtdChange, this.components);
+  DashboardProduct(
+      this.name,
+      this.pendingOrderCount,
+      this.status,
+      this.outstandingQuantity,
+      this.bid,
+      this.ask,
+      this.mtdChange,
+      this.components);
 }
 
 /// This is the stateless widget that the main application instantiates.
@@ -40,7 +62,66 @@ class ProductsPage extends StatelessWidget {
   const ProductsPage({Key? key}) : super(key: key);
 
   static List<Component> _componentList = [
-new Component("APPLE INC", "APPL UW", "-", "CNE0000009T3", "160.13", "-", "CNY", "BBG000C4CBY2", "-", "0.063717", "583", "EUR 236.03", "0.08%")
+    new Component(
+        "APPLE INC",
+        "APPL UW",
+        "-",
+        "CNE0000009T3",
+        "160.13",
+        "-",
+        "CNY",
+        "BBG000C4CBY2",
+        "-",
+        "0.063717",
+        "583",
+        "EUR 236.03",
+        "0.08%",
+        false),
+    new Component(
+        "ADOBE INC",
+        "ADBE UW",
+        "-",
+        "CNE0000009T3",
+        "211.1",
+        "-",
+        "EUR",
+        "BBG000C4CBY2",
+        "-",
+        "0.063717",
+        "583",
+        "EUR 236.03",
+        "0.08%",
+        false),
+    new Component(
+        "ADIDAS AG",
+        "ADS GY",
+        "-",
+        "CNE0000009T3",
+        "100.17",
+        "-",
+        "USD",
+        "BBG000C4CBY2",
+        "-",
+        "0.063717",
+        "583",
+        "EUR 236.03",
+        "0.08%",
+        true),
+    new Component(
+        "AUTODESK AG",
+        "ADSK UW",
+        "-",
+        "CNE0000009T3",
+        "151.1",
+        "-",
+        "USD",
+        "BBG000C4CBY2",
+        "-",
+        "0.063717",
+        "583",
+        "EUR 236.03",
+        "0.08%",
+        true)
   ];
 
   static List<DashboardProduct> _productList = [
@@ -51,7 +132,8 @@ new Component("APPLE INC", "APPL UW", "-", "CNE0000009T3", "160.13", "-", "CNY",
         "USD 36.17 mio (CHF 35.81 mio) – 210’000 certificates",
         "USD 115.25",
         "USD 116.50",
-        "USD 3.3%", _componentList),
+        "USD 3.3%",
+        _componentList),
     new DashboardProduct(
         "Active Manufacturing Certificate",
         null,
@@ -59,7 +141,8 @@ new Component("APPLE INC", "APPL UW", "-", "CNE0000009T3", "160.13", "-", "CNY",
         "CHF 0.13 mio – 1'000 certificates",
         "CHF 120.50",
         "CHF 121.20",
-        "CHF 1.0%",_componentList),
+        "CHF 1.0%",
+        _componentList),
     new DashboardProduct(
         "Crypto Stars",
         "2",
@@ -67,9 +150,17 @@ new Component("APPLE INC", "APPL UW", "-", "CNE0000009T3", "160.13", "-", "CNY",
         "USD 0.90 mio (CHF 0.83mio) – 5'000 certificates",
         "USD 180.10",
         "USD 180.60",
-        "USD 1.0%",_componentList),
-    new DashboardProduct("AMC on Global e-Business", null,
-        "Ready for rebalancing", "11'600 certificates", null, null, null,_componentList),
+        "USD 1.0%",
+        _componentList),
+    new DashboardProduct(
+        "AMC on Global e-Business",
+        null,
+        "Ready for rebalancing",
+        "11'600 certificates",
+        null,
+        null,
+        null,
+        _componentList),
     new DashboardProduct(
         "AMC on Exotic Asset Types",
         "1",
@@ -77,8 +168,9 @@ new Component("APPLE INC", "APPL UW", "-", "CNE0000009T3", "160.13", "-", "CNY",
         "CHF 0.57mio – 5'600 certificates",
         "CHF 100.50",
         "CHF 101.50",
-        "USD 9.9%",_componentList
-    )];
+        "USD 9.9%",
+        _componentList)
+  ];
 
   @override
   Widget build(BuildContext context) {

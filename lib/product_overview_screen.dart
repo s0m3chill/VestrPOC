@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:vestr_poc/products_screen.dart';
+import "component_details_screen.dart";
 
 class ProductOverviewScreen extends StatelessWidget {
   @override
@@ -10,87 +11,91 @@ class ProductOverviewScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as DashboardProduct;
 
     return Scaffold(
-      appBar: AppBar(
-          iconTheme: IconThemeData(
-            color: Color.fromRGBO(0, 0, 0, 0.54), //change your color here
-          ),
-          title: Row(
+        appBar: AppBar(
+            titleSpacing: 0.0,
+            centerTitle: false,
+            iconTheme: IconThemeData(
+              color: Color.fromRGBO(0, 0, 0, 0.54), //change your color here
+            ),
+            title: Container(
+              child:
+                Row(children: [
+                  Padding(
+                      padding: EdgeInsets.only(right: 8),
+                      child: ImageIcon(AssetImage('assets/images/frame.png'))),
+                  Text(product.name,
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context)
+                              .appBarTheme
+                              .titleTextStyle!
+                              .color)),
+                  Padding(
+                      padding: EdgeInsets.only(left: 8),
+                      child: ImageIcon(
+                          AssetImage('assets/images/text-only.png'),
+                          size: 50,
+                          color: Color.fromRGBO(0, 230, 118, 0.88)))
+                ]),
+
+            )),
+        body: Column(children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Row(children: [
-                Padding(
-                    padding: EdgeInsets.only(right: 8),
-                    child: ImageIcon(AssetImage('assets/images/frame.png'))),
-                Text(product.name,
-                    style: TextStyle(
-                        color: Theme.of(context)
-                            .appBarTheme
-                            .titleTextStyle!
-                            .color)),
-                ImageIcon(AssetImage('assets/images/text-only.png'),
-                    size: 50, color: Color.fromRGBO(0, 230, 118, 0.88))
-              ]),
-            ],
-          )),
-      body: Container(
-        padding: EdgeInsets.all(10),
-        child: ListView.builder(
-          itemCount: 3,
-          itemBuilder: (BuildContext context, int index) {
-            return ExpansionPanelList(
-              animationDuration: Duration(milliseconds: 1000),
-              dividerColor: Colors.red,
-              elevation: 1,
-              children: [
-                ExpansionPanel(
-                  body: Container(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        ClipOval(
-                          child: CircleAvatar(
-                            child: Text('gg'),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Text(
-                          'descr',
-                          style: TextStyle(
-                              color: Colors.grey[700],
-                              fontSize: 15,
-                              letterSpacing: 0.3,
-                              height: 1.3),
-                        ),
-                      ],
-                    ),
+              Container(
+                padding: EdgeInsets.all(15),
+                color: Theme.of(context).cardColor,
+                child: Text(
+                  "${product.components.length} titles",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
                   ),
-                  headerBuilder: (BuildContext context, bool isExpanded) {
-                    return Container(
-                      padding: EdgeInsets.all(10),
-                      child: Text(
-                        'header',
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 18,
-                        ),
-                      ),
-                    );
-                  },
-                  isExpanded: false,
-                )
-              ],
-              // expansionCallback: (int item, bool status) {
-              //   setState(() {
-              //     itemData[index].expanded = !itemData[index].expanded;
-              //   });
-              // },
-            );
-          },
-        ),
-      ),
-    );
+                ),
+              )
+            ],
+          ),
+          Divider(height: 1),
+          Expanded(
+              child: Container(
+            padding: EdgeInsets.zero,
+            child: ListView.builder(
+              itemCount: product.components.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                    color: (index % 2 == 0)
+                        ? Colors.white
+                        : Color.fromRGBO(248, 248, 248, 1),
+                    child: ListTile(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ComponentDetailsScreen(),
+                                settings: RouteSettings(arguments: product.components[index]),
+                              ));
+                        },
+                        leading: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              product.components[index].enabled
+                                  ? ImageIcon(
+                                      AssetImage(
+                                          'assets/images/check-circle-outline.png'),
+                                      color: Color.fromRGBO(67, 160, 71, 1))
+                                  : ImageIcon(
+                                      AssetImage(
+                                          'assets/images/outlined-flag.png'),
+                                      color: Color.fromRGBO(255, 156, 31, 1))
+                            ]),
+                        title: Text(product.components[index].name),
+                        subtitle: Text(product.components[index].shortName),
+                        trailing: ImageIcon(AssetImage(
+                            'assets/images/keyboard-arrow-right.png'))));
+              },
+            ),
+          ))
+        ]));
   }
 }
