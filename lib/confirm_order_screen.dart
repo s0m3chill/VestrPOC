@@ -224,7 +224,9 @@ class ConfirmOrderScreen extends StatelessWidget {
               child: SizedBox(
                   width: double.infinity,
                   child: RaisedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _showDialog(context);
+                    },
                     textColor: Colors.white,
                     color: Colors.blue,
                     shape: RoundedRectangleBorder(
@@ -233,6 +235,30 @@ class ConfirmOrderScreen extends StatelessWidget {
                   )))
         ],
       ),
+    );
+  }
+
+  void _showDialog(BuildContext context) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Success"),
+          content: new Text("Order created"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

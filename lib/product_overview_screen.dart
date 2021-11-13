@@ -39,19 +39,38 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
       appBar: AppBar(
         actions: [
           PopupMenuButton(
-              itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                    PopupMenuItem(
-                        child: ListTile(
-                            title: Text("Quick order"),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ConfirmOrderScreen(),
-                                    settings: RouteSettings(arguments: product),
-                                  ));
-                            }))
-                  ])
+            itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+              PopupMenuItem(
+                child: ListTile(
+                  title: Text("Quick order"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ConfirmOrderScreen(),
+                        settings: RouteSettings(arguments: product),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              PopupMenuItem(
+                child: ListTile(
+                  title: Text("Constraints"),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ConfirmOrderScreen(),
+                        settings: RouteSettings(arguments: product),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ],
         titleSpacing: 0.0,
         centerTitle: false,
