@@ -13,12 +13,7 @@ class SearchOverviewScreen extends StatefulWidget {
 }
 
 class _ProductOverviewScreenState extends State<SearchOverviewScreen> {
-  List list = [
-    "Flutter",
-    "React",
-    "Ionic",
-    "Xamarin",
-  ];
+  List list = ["FB", "AAPL", "AMZN", "NFLX", "GOOGL"];
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +38,22 @@ class _ProductOverviewScreenState extends State<SearchOverviewScreen> {
                   overlaySearchListItemBuilder: (item) {
                     return Container(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        item as String,
-                        style: const TextStyle(fontSize: 18),
+                      child: Column(
+                        children: [
+                          Text(
+                            item as String,
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                          Text(
+                            "NASDAQ",
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                        ],
                       ),
                     );
                   },
                   onItemSelected: (item) {
-                    Navigator.of(context).pop();
+                    // Navigator.of(context).pop();
                     BlocProvider.of<OrderBloc>(context)
                         .add(OrderEvent.add(new Order(item.toString())));
                   },
