@@ -43,29 +43,26 @@ class ComponentDetailsScreen extends StatelessWidget {
             color: Color.fromRGBO(0, 0, 0, 0.54), //change your color here
           ),
           title: Container(
-            child:
-            Row(children: [
+            child: Row(children: [
               Padding(
                   padding: EdgeInsets.only(right: 8),
-                  child:  component.enabled
+                  child: component.enabled
                       ? ImageIcon(
-                      AssetImage(
-                          'assets/images/check-circle-outline.png'),
-                      color: Color.fromRGBO(67, 160, 71, 1))
-                      : ImageIcon(
-                      AssetImage(
-                          'assets/images/outlined-flag.png'),
-                      color: Color.fromRGBO(255, 156, 31, 1))),
-              Text(component.name,
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context)
-                          .appBarTheme
-                          .titleTextStyle!
-                          .color)),
+                          AssetImage('assets/images/check-circle-outline.png'),
+                          color: Color.fromRGBO(67, 160, 71, 1))
+                      : ImageIcon(AssetImage('assets/images/outlined-flag.png'),
+                          color: Color.fromRGBO(255, 156, 31, 1))),
+              Column(children: [
+                Text(component.name,
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context)
+                            .appBarTheme
+                            .titleTextStyle!
+                            .color)),
+              ])
             ]),
-
           )),
       body: Container(
         padding: EdgeInsets.all(10),
