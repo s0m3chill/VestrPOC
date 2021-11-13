@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 
-import 'home_page.dart';
+import 'home_screen.dart';
+
+import 'package:flutter/rendering.dart';
 
 void main() {
+  // debugPaintSizeEnabled = true;
   runApp(MyApp());
 }
 

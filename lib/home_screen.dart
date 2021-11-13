@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'products_page.dart';
+import 'products_screen.dart';
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
@@ -13,7 +13,6 @@ class _MyHomePageState extends State<MyHomePage> {
       'Index 2: Settings',
     ),
   ];
-
 
   void _onItemTapped(int index) {
     setState(() {
@@ -38,7 +37,22 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text("Products", style: TextStyle(color: Theme.of(context).appBarTheme.titleTextStyle!.color)),
+        title: Row(crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+          Text("Products",
+              style: TextStyle(
+                  color: Theme.of(context).appBarTheme.titleTextStyle!.color)),
+          Container(
+            margin: EdgeInsets.only(left: 4),
+            height: 8,
+            width: 8,
+            decoration: new BoxDecoration(
+              color: Colors.red,
+              shape: BoxShape.circle,
+            ),
+          ),
+
+        ]),
         centerTitle: false,
       ),
       body: Center(

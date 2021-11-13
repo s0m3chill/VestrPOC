@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 const vestrBlue = Color(0xFF0B79D0);
 const vestrSurfaceWhite = Color(0xFFFFFBFA);
 const vestrGrey = Color(0x8A000000);
+const vestrChartLine = Color(0x4D68D1CB);
+const vestrChartArea = Color(0x1A68D1CB);
 
 const kShrinePink100 = Color(0xFFFEDBD0);
 const kShrinePink300 = Color(0xFFFBB8AC);

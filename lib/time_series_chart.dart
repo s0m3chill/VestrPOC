@@ -14,24 +14,30 @@ class SimpleTimeSeriesChart extends StatelessWidget {
     return new SimpleTimeSeriesChart(
       _createSampleData(),
       // Disable animations for image tests.
-      animate: false,
+      animate: false
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return new charts.TimeSeriesChart(
-      seriesList,
-      animate: animate,
-      // Optionally pass in a [DateTimeFactory] used by the chart. The factory
-      // should create the same type of [DateTime] as the data provided. If none
-      // specified, the default creates local date time.
-      dateTimeFactory: const charts.LocalDateTimeFactory(),
-      primaryMeasureAxis: charts.NumericAxisSpec(renderSpec: charts.NoneRenderSpec()),
-      secondaryMeasureAxis: new charts.NumericAxisSpec(
-          tickProviderSpec:
-          new charts.BasicNumericTickProviderSpec(desiredTickCount: 3)),
-    );
+    return new charts.TimeSeriesChart(seriesList,
+        animate: animate,
+        // Optionally pass in a [DateTimeFactory] used by the chart. The factory
+        // should create the same type of [DateTime] as the data provided. If none
+        // specified, the default creates local date time.
+        dateTimeFactory: const charts.LocalDateTimeFactory(),
+        primaryMeasureAxis:
+            charts.NumericAxisSpec(renderSpec: charts.NoneRenderSpec()),
+        secondaryMeasureAxis: new charts.NumericAxisSpec(
+            tickProviderSpec:
+                new charts.BasicNumericTickProviderSpec(desiredTickCount: 3)),
+        customSeriesRenderers: [
+          new charts.LineRendererConfig(
+              // ID used to link series to this renderer.
+              customRendererId: 'customArea',
+              includeArea: true,stacked: true
+              ),
+        ]);
   }
 
   /// Create one series with sample hard coded data.
@@ -46,11 +52,14 @@ class SimpleTimeSeriesChart extends StatelessWidget {
     return [
       new charts.Series<TimeSeriesSales, DateTime>(
         id: 'Sales',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
         domainFn: (TimeSeriesSales sales, _) => sales.time,
         measureFn: (TimeSeriesSales sales, _) => sales.sales,
         data: data,
-      )..setAttribute(charts.measureAxisIdKey, secondaryMeasureAxisId)
+        colorFn: (_, __) => charts.ColorUtil.fromDartColor(Color.fromRGBO(104, 209, 203, 1)),
+        areaColorFn: (_, __) => charts.ColorUtil.fromDartColor(Color.fromRGBO(104, 209, 203, 0.3)),
+      )
+        ..setAttribute(charts.measureAxisIdKey, secondaryMeasureAxisId)
+        ..setAttribute(charts.rendererIdKey, 'customArea')
     ];
   }
 }
