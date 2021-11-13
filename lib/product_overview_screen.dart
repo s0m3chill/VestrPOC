@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:vestr_poc/confirm_order_screen.dart';
 import 'package:vestr_poc/products_screen.dart';
 import "component_details_screen.dart";
 
@@ -12,6 +13,20 @@ class ProductOverviewScreen extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
+            actions: [
+              PopupMenuButton(
+                  itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                    PopupMenuItem(
+                        child: ListTile(title: Text("Quick order"), onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ConfirmOrderScreen(),
+                                // settings: RouteSettings(arguments: product.components[index]),
+                              ));
+                        }))
+                  ])
+            ],
             titleSpacing: 0.0,
             centerTitle: false,
             iconTheme: IconThemeData(

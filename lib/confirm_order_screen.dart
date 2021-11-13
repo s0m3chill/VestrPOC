@@ -50,19 +50,18 @@ class AppDropdownInput<T> extends StatelessWidget {
 }
 
 class ConfirmOrderScreen extends StatelessWidget {
-  final ButtonStyle _raisedButtonStyle = ElevatedButton.styleFrom(
-    onPrimary: Colors.black87,
-    primary: Colors.grey[300],
-    minimumSize: Size(88, 36),
-    padding: EdgeInsets.symmetric(horizontal: 16),
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(2)),
-    ),
-  );
+  // final ButtonStyle _raisedButtonStyle = TextButton.styleFrom(
+  //   primary: Colors.grey[300],
+  //   minimumSize: Size(88, 36),
+  //   padding: EdgeInsets.symmetric(horizontal: 16),
+  //   shape: const RoundedRectangleBorder(
+  //     borderRadius: BorderRadius.all(Radius.circular(2)),
+  //   ),
+  // );
 
   final Divider _divider = Divider(
     color: Colors.grey,
-    height: 2,
+    height: 25,
   );
 
   final _letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
@@ -77,94 +76,131 @@ class ConfirmOrderScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Container(
-            height: 100,
-            child: ElevatedButton(
-              style: _raisedButtonStyle,
-              onPressed: () {},
-              child: Text('ADD ASSET'),
-            ),
-          ),
+          Padding(
+              padding: EdgeInsets.only(top: 14),
+              child: (Row(children: [
+                Padding(
+                    padding: EdgeInsets.only(left: 15),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text('ADD ASSET'),
+                    ))
+              ]))),
           _divider,
-          Row(
-            children: [
-              RaisedButton(
-                onPressed: () {},
-                textColor: Colors.green,
-                color: Colors.green.withOpacity(0.5),
-                shape: RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.green, width: 1),
-                    borderRadius: BorderRadius.circular(3)),
-                child: Text("BUY"),
-              ),
-              RaisedButton(
-                onPressed: () {},
-                textColor: Colors.red,
-                color: Colors.red.withOpacity(0.5),
-                shape: RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.red, width: 1),
-                    borderRadius: BorderRadius.circular(3)),
-                child: Text("SELL"),
-              ),
-            ],
-          ),
+          Padding(
+              padding: EdgeInsets.all(15),
+              child: Row(
+                children: [
+                  Expanded(
+                      child: SizedBox(
+                          height: 50,
+                          child: RaisedButton(
+                            onPressed: () {},
+                            color: Colors.white,
+                            textColor: Colors.green.withOpacity(0.5),
+                            shape: RoundedRectangleBorder(
+                                side: BorderSide(color: Colors.green, width: 1),
+                                borderRadius: BorderRadius.circular(3)),
+                            child: Text("BUY"),
+                          ))),
+                  SizedBox(width: 8),
+                  Expanded(
+                      child: SizedBox(
+                          height: 50,
+                          child: RaisedButton(
+                            onPressed: () {},
+                            textColor: Colors.red,
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                side: BorderSide(color: Colors.red, width: 1),
+                                borderRadius: BorderRadius.circular(3)),
+                            child: Text("SELL"),
+                          ))),
+                ],
+              )),
           _divider,
-          Row(
-            children: [
-              SimpleAutocompleteFormField<String>(
-                decoration: InputDecoration(
-                    labelText: 'Quantity', border: OutlineInputBorder()),
-                // suggestionsHeight: 200.0,
-                maxSuggestions: 10,
-                itemBuilder: (context, item) => Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(item!),
-                ),
-                onSearch: (String search) async => search.isEmpty
-                    ? _letters
-                    : _letters
-                        .where(
-                            (letter) => search.toLowerCase().contains(letter))
-                        .toList(),
-              ),
-              SimpleAutocompleteFormField<String>(
-                decoration: InputDecoration(
-                    labelText: 'Order type', border: OutlineInputBorder()),
-                // suggestionsHeight: 200.0,
-                maxSuggestions: 10,
-                itemBuilder: (context, item) => Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(item!),
-                ),
-                onSearch: (String search) async => search.isEmpty
-                    ? _letters
-                    : _letters
-                        .where(
-                            (letter) => search.toLowerCase().contains(letter))
-                        .toList(),
-              ),
-            ],
-          ),
+          Padding(
+              padding: EdgeInsets.all(15),
+              child: Row(
+                children: [
+                  Expanded(
+                      child: SimpleAutocompleteFormField<String>(
+                    initialValue: "0",
+                    decoration: InputDecoration(
+                        labelText: 'Quantity', border: OutlineInputBorder()),
+                    // suggestionsHeight: 200.0,
+                    maxSuggestions: 10,
+                    itemBuilder: (context, item) => Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(item!),
+                    ),
+                    onSearch: (String search) async => search.isEmpty
+                        ? _letters
+                        : _letters
+                            .where((letter) =>
+                                search.toLowerCase().contains(letter))
+                            .toList(),
+                  )),
+                  SizedBox(width: 8),
+                  Expanded(
+                      child: SimpleAutocompleteFormField<String>(
+                    initialValue: "Best Effort",
+                    decoration: InputDecoration(
+                        labelText: 'Order type', border: OutlineInputBorder()),
+                    // suggestionsHeight: 200.0,
+                    maxSuggestions: 10,
+                    itemBuilder: (context, item) => Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(item!),
+                    ),
+                    onSearch: (String search) async => search.isEmpty
+                        ? _letters
+                        : _letters
+                            .where((letter) =>
+                                search.toLowerCase().contains(letter))
+                            .toList(),
+                  )),
+                ],
+              )),
           _divider,
-          Row(
-            children: [
-              Column(
-                children: [Text("Cash indicative"), Text("CHF 500.0")],
-              ),
-              Column(
-                children: [Text("Cash available"), Text("CHF 500.0")],
-              ),
-            ],
-          ),
+          Padding(
+              padding: EdgeInsets.all(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                      child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Cash indicative",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text("CHF 500.0")
+                    ],
+                  )),
+                  Expanded(
+                      child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Cash available",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text("CHF 500.0")
+                    ],
+                  )),
+                ],
+              )),
           _divider,
-          RaisedButton(
-            onPressed: () {},
-            textColor: Colors.white,
-            color: Colors.blue,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
-            child: Text("CONFIRM ORDER"),
-          ),
+          Padding(
+              padding: EdgeInsets.all(15),
+              child: SizedBox(
+                  width: double.infinity,
+                  child: RaisedButton(
+                    onPressed: () {},
+                    textColor: Colors.white,
+                    color: Colors.blue,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(3)),
+                    child: Text("CONFIRM ORDER"),
+                  )))
         ],
       ),
     );
