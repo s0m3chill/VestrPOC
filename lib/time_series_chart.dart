@@ -1,4 +1,6 @@
 /// Timeseries chart example
+import 'dart:math';
+
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -42,11 +44,14 @@ class SimpleTimeSeriesChart extends StatelessWidget {
 
   /// Create one series with sample hard coded data.
   static List<charts.Series<TimeSeriesSales, DateTime>> _createSampleData() {
+    
+    final _rnd = Random();
+    
     final data = [
-      new TimeSeriesSales(new DateTime(2017, 9, 19), 5),
-      new TimeSeriesSales(new DateTime(2017, 9, 26), 25),
-      new TimeSeriesSales(new DateTime(2017, 10, 3), 100),
-      new TimeSeriesSales(new DateTime(2017, 10, 10), 75),
+      new TimeSeriesSales(new DateTime(2017, 9, 19), _rnd.nextInt(8) + 2),
+      new TimeSeriesSales(new DateTime(2017, 9, 26), _rnd.nextInt(30) + 20),
+      new TimeSeriesSales(new DateTime(2017, 10, 3), _rnd.nextInt(115) + 80),
+      new TimeSeriesSales(new DateTime(2017, 10, 10), _rnd.nextInt(85) + 68),
     ];
 
     return [
