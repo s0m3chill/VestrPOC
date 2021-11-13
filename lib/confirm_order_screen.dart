@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
 
 class AppDropdownInput<T> extends StatelessWidget {
   final String hintText;
@@ -22,11 +23,11 @@ class AppDropdownInput<T> extends StatelessWidget {
       builder: (FormFieldState<T> state) {
         return InputDecorator(
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(
-                horizontal: 20.0, vertical: 15.0),
+            contentPadding:
+                EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
             labelText: hintText,
             border:
-            OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
+                OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
           ),
           isEmpty: value == null || value == '',
           child: DropdownButtonHideUnderline(
@@ -63,6 +64,8 @@ class ConfirmOrderScreen extends StatelessWidget {
     color: Colors.grey,
     height: 2,
   );
+
+  final _letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
   @override
   Widget build(BuildContext context) {
@@ -106,29 +109,42 @@ class ConfirmOrderScreen extends StatelessWidget {
             ],
           ),
           _divider,
-          Row(children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: 'Quantity',
+          Row(
+            children: [
+              SimpleAutocompleteFormField<String>(
+                decoration: InputDecoration(
+                    labelText: 'Quantity', border: OutlineInputBorder()),
+                // suggestionsHeight: 200.0,
+                maxSuggestions: 10,
+                itemBuilder: (context, item) => Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(item!),
                 ),
+                onSearch: (String search) async => search.isEmpty
+                    ? _letters
+                    : _letters
+                        .where(
+                            (letter) => search.toLowerCase().contains(letter))
+                        .toList(),
               ),
-            ),
-            AppDropdownInput(
-              hintText: "Gender",
-              options: ["Male", "Female"],
-              value: gender,
-              onChanged: (String value) {
-                setState(() {
-                  gender = value;
-                  // state.didChange(newValue);
-                });
-              },
-              getLabel: (String value) => value,
-            )
-          ],),
+              SimpleAutocompleteFormField<String>(
+                decoration: InputDecoration(
+                    labelText: 'Order type', border: OutlineInputBorder()),
+                // suggestionsHeight: 200.0,
+                maxSuggestions: 10,
+                itemBuilder: (context, item) => Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(item!),
+                ),
+                onSearch: (String search) async => search.isEmpty
+                    ? _letters
+                    : _letters
+                        .where(
+                            (letter) => search.toLowerCase().contains(letter))
+                        .toList(),
+              ),
+            ],
+          ),
           _divider,
           Row(
             children: [
