@@ -136,7 +136,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                       ExpansionPanel(
                         headerBuilder: (BuildContext context, bool isExpanded) {
                           return Container(
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.only(top:10, left: 15, bottom: 10),
                             child: Text(
                               section[index].headerItem,
                               style: TextStyle(
@@ -146,13 +146,11 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                             ),
                           );
                         },
-                        body: Container(
-                          padding:
-                              EdgeInsets.only(left: 10, right: 10, bottom: 20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ListTile(
+                        body: ListView.builder(
+                            itemCount: product.components.length,
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ListTile(
                                 onTap: () {
                                   Navigator.push(
                                       context,
@@ -160,13 +158,14 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                                         builder: (context) =>
                                             ComponentDetailsScreen(),
                                         settings: RouteSettings(
-                                            arguments: product.components[0]),
+                                            arguments:
+                                                product.components[index]),
                                       ));
                                 },
                                 leading: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      product.components[0].enabled
+                                      product.components[index].enabled
                                           ? ImageIcon(
                                               AssetImage(
                                                   'assets/images/check-circle-outline.png'),
@@ -178,115 +177,15 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                                               color: Color.fromRGBO(
                                                   255, 156, 31, 1))
                                     ]),
-                                title: Text(product.components[0].name),
-                                subtitle: Text(product.components[0].shortName),
+                                title: Text(product.components[index].name),
+                                subtitle:
+                                    Text(product.components[index].shortName),
                                 trailing: ImageIcon(
                                   AssetImage(
                                       'assets/images/keyboard-arrow-right.png'),
                                 ),
-                              ),
-                              ListTile(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ComponentDetailsScreen(),
-                                        settings: RouteSettings(
-                                            arguments: product.components[1]),
-                                      ));
-                                },
-                                leading: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      product.components[1].enabled
-                                          ? ImageIcon(
-                                              AssetImage(
-                                                  'assets/images/check-circle-outline.png'),
-                                              color: Color.fromRGBO(
-                                                  67, 160, 71, 1))
-                                          : ImageIcon(
-                                              AssetImage(
-                                                  'assets/images/outlined-flag.png'),
-                                              color: Color.fromRGBO(
-                                                  255, 156, 31, 1))
-                                    ]),
-                                title: Text(product.components[1].name),
-                                subtitle: Text(product.components[1].shortName),
-                                trailing: ImageIcon(
-                                  AssetImage(
-                                      'assets/images/keyboard-arrow-right.png'),
-                                ),
-                              ),
-                              ListTile(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ComponentDetailsScreen(),
-                                        settings: RouteSettings(
-                                            arguments: product.components[2]),
-                                      ));
-                                },
-                                leading: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      product.components[2].enabled
-                                          ? ImageIcon(
-                                              AssetImage(
-                                                  'assets/images/check-circle-outline.png'),
-                                              color: Color.fromRGBO(
-                                                  67, 160, 71, 1))
-                                          : ImageIcon(
-                                              AssetImage(
-                                                  'assets/images/outlined-flag.png'),
-                                              color: Color.fromRGBO(
-                                                  255, 156, 31, 1))
-                                    ]),
-                                title: Text(product.components[2].name),
-                                subtitle: Text(product.components[2].shortName),
-                                trailing: ImageIcon(
-                                  AssetImage(
-                                      'assets/images/keyboard-arrow-right.png'),
-                                ),
-                              ),
-                              ListTile(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ComponentDetailsScreen(),
-                                        settings: RouteSettings(
-                                            arguments: product.components[3]),
-                                      ));
-                                },
-                                leading: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      product.components[3].enabled
-                                          ? ImageIcon(
-                                              AssetImage(
-                                                  'assets/images/check-circle-outline.png'),
-                                              color: Color.fromRGBO(
-                                                  67, 160, 71, 1))
-                                          : ImageIcon(
-                                              AssetImage(
-                                                  'assets/images/outlined-flag.png'),
-                                              color: Color.fromRGBO(
-                                                  255, 156, 31, 1))
-                                    ]),
-                                title: Text(product.components[3].name),
-                                subtitle: Text(product.components[3].shortName),
-                                trailing: ImageIcon(
-                                  AssetImage(
-                                      'assets/images/keyboard-arrow-right.png'),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                              );
+                            }),
                         isExpanded: section[index].expanded,
                       )
                     ],
