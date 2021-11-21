@@ -14,7 +14,7 @@ class _ProductOverviewScreenState extends State<SearchOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final orderBloc = BlocProvider.of<AssetBloc>(context);
+    final assetBloc = BlocProvider.of<AssetBloc>(context);
 
     return Scaffold(
         backgroundColor: GFColors.WHITE,
@@ -45,8 +45,8 @@ class _ProductOverviewScreenState extends State<SearchOverviewScreen> {
             );
           },
           onItemSelected: (item) {
+            assetBloc.add(AssetAdded(new Asset(item as String)));
             Navigator.of(context).pop();
-            orderBloc.add(AssetAdded(new Asset(item as String)));
           },
         ));
   }
