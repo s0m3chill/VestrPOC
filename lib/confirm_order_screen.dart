@@ -2,12 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
-import 'package:vestr_poc/order.dart';
 import 'package:vestr_poc/products_screen.dart';
-import 'package:vestr_poc/order_event.dart';
 import 'package:vestr_poc/search_screen.dart';
 
-import 'order_bloc.dart';
+import 'asset_bloc.dart';
 
 class AppDropdownInput<T> extends StatelessWidget {
   final String hintText;
@@ -77,6 +75,7 @@ class ConfirmOrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final product =
         ModalRoute.of(context)!.settings.arguments as DashboardProduct;
+    final assetBloc = BlocProvider.of<AssetBloc>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -106,23 +105,52 @@ class ConfirmOrderScreen extends StatelessWidget {
           Padding(
               padding: EdgeInsets.only(top: 14),
               child: (Row(children: [
-                Padding(
-                    padding: EdgeInsets.only(left: 15),
-                    child: TextButton(
-                      onPressed: () {
-                        showModalBottomSheet(
-                          isScrollControlled: true,
-                          context: context,
-                          builder: (context) => FractionallySizedBox(
-                            heightFactor: 0.85,
-                            child: BlocProvider<OrderBloc>(
-                                create: (_) => OrderBloc(new Order(null)),
-                                child: SearchOverviewScreen()),
-                          ),
-                        );
-                      },
-                      child: Text('ADD ASSET'),
-                    ))
+                BlocListener<AssetBloc, Asset?>(
+                  listener: (context, state) {
+                    if (state != null) {
+                      final assetName = state.name;
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.green,
+                          content:
+                              Text('Successfully selected asset $assetName'),
+                        ),
+                      );
+                    }
+                  },
+                  child:
+                      BlocBuilder<AssetBloc, Asset?>(builder: (context, state) {
+                    if (state == null) {
+                      return Padding(
+                          padding: EdgeInsets.only(left: 15),
+                          child: TextButton(
+                            onPressed: () {
+                              showModalBottomSheet(
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (context) => FractionallySizedBox(
+                                  heightFactor: 0.85,
+                                  child: SearchOverviewScreen(),
+                                ),
+                              );
+                            },
+                            child: Text('add asset'.toUpperCase()),
+                          ));
+                    } else {
+                      return Padding(
+                          padding: EdgeInsets.only(left: 15),
+                          child: Row(children: [
+                            Text(state.name),
+                            IconButton(
+                                icon: const Icon(Icons.clear),
+                                onPressed: () {
+                                  assetBloc.add(AssetRemoved());
+                                })
+                          ]));
+                    }
+                  }),
+                )
               ]))),
           _divider,
           Padding(
@@ -251,6 +279,8 @@ class ConfirmOrderScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        BlocProvider.of<AssetBloc>(context).add(AssetRemoved());
+
         // return object of type Dialog
         return AlertDialog(
           title: new Text("Success"),
