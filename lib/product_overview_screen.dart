@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vestr_poc/confirm_order_screen.dart';
 import 'package:vestr_poc/products_screen.dart';
 import "component_details_screen.dart";
+import 'asset_bloc.dart';
 
 class ItemModel {
   bool expanded;
