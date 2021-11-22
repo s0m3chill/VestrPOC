@@ -14,7 +14,8 @@ class ComponentDetailsScreen extends StatelessWidget {
     "Units AMC",
     "Total units",
     "Position value",
-    "% current"
+    "Percentage (current)",
+    "Percentage (target)"
   ];
 
   @override
@@ -32,7 +33,8 @@ class ComponentDetailsScreen extends StatelessWidget {
     propMap["Units AMC"] = component.unitsPerAmc;
     propMap["Total units"] = component.totalUnits;
     propMap["Position value"] = component.positionValue;
-    propMap["% current"] = component.percentCurrent;
+    propMap["Percentage (current)"] = component.percentCurrent;
+    propMap["Percentage (target)"] = component.percentTarget;
     propMap["Valor"] = component.valor;
 
     return Scaffold(

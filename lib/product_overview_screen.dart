@@ -136,7 +136,8 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                       ExpansionPanel(
                         headerBuilder: (BuildContext context, bool isExpanded) {
                           return Container(
-                            padding: EdgeInsets.only(top:10, left: 15, bottom: 10),
+                            padding:
+                                EdgeInsets.only(top: 10, left: 15, bottom: 10),
                             child: Text(
                               section[index].headerItem,
                               style: TextStyle(
@@ -151,40 +152,51 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                             shrinkWrap: true,
                             itemBuilder: (BuildContext context, int index) {
                               return ListTile(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ComponentDetailsScreen(),
-                                        settings: RouteSettings(
-                                            arguments:
-                                                product.components[index]),
-                                      ));
-                                },
-                                leading: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      product.components[index].enabled
-                                          ? ImageIcon(
-                                              AssetImage(
-                                                  'assets/images/check-circle-outline.png'),
-                                              color: Color.fromRGBO(
-                                                  67, 160, 71, 1))
-                                          : ImageIcon(
-                                              AssetImage(
-                                                  'assets/images/outlined-flag.png'),
-                                              color: Color.fromRGBO(
-                                                  255, 156, 31, 1))
-                                    ]),
-                                title: Text(product.components[index].name),
-                                subtitle:
-                                    Text(product.components[index].shortName),
-                                trailing: ImageIcon(
-                                  AssetImage(
-                                      'assets/images/keyboard-arrow-right.png'),
-                                ),
-                              );
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ComponentDetailsScreen(),
+                                          settings: RouteSettings(
+                                              arguments:
+                                                  product.components[index]),
+                                        ));
+                                  },
+                                  leading: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        product.components[index].enabled
+                                            ? ImageIcon(
+                                                AssetImage(
+                                                    'assets/images/check-circle-outline.png'),
+                                                color: Color.fromRGBO(
+                                                    67, 160, 71, 1))
+                                            : ImageIcon(
+                                                AssetImage(
+                                                    'assets/images/outlined-flag.png'),
+                                                color: Color.fromRGBO(
+                                                    255, 156, 31, 1))
+                                      ]),
+                                  title: Text(product.components[index].name),
+                                  subtitle:
+                                      Text(product.components[index].shortName),
+                                  trailing: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                            product.components[index]
+                                                .percentTarget,
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 12,
+                                            )),
+                                        ImageIcon(
+                                          AssetImage(
+                                              'assets/images/keyboard-arrow-right.png'),
+                                        )
+                                      ]));
                             }),
                         isExpanded: section[index].expanded,
                       )
