@@ -17,6 +17,7 @@ class Component {
   final String totalUnits;
   final String positionValue;
   final String percentCurrent;
+  final String percentTarget;
   final bool enabled;
 
   Component(
@@ -33,6 +34,7 @@ class Component {
       this.totalUnits,
       this.positionValue,
       this.percentCurrent,
+      this.percentTarget,
       this.enabled);
 }
 
@@ -75,7 +77,8 @@ class ProductsPage extends StatelessWidget {
         "0.063717",
         "583",
         "EUR 236.03",
-        "0.08%",
+        "85.16%",
+        "97.66%",
         false),
     new Component(
         "ADOBE INC",
@@ -90,7 +93,8 @@ class ProductsPage extends StatelessWidget {
         "0.063717",
         "583",
         "EUR 236.03",
-        "0.08%",
+        "14.23%",
+        "23.68%",
         false),
     new Component(
         "ADIDAS AG",
@@ -105,7 +109,8 @@ class ProductsPage extends StatelessWidget {
         "0.063717",
         "583",
         "EUR 236.03",
-        "0.08%",
+        "0.61%",
+        "0.61%",
         true),
     new Component(
         "AUTODESK AG",
@@ -120,7 +125,8 @@ class ProductsPage extends StatelessWidget {
         "0.063717",
         "583",
         "EUR 236.03",
-        "0.08%",
+        "0.00%",
+        "-21.94%",
         true)
   ];
 
